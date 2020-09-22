@@ -2,35 +2,32 @@ import socket
 import sys
 import pickle
 
-socket_client = socket.socket()
-port = 5009
-address = 'localhost'
 buffer_size = 1024
+socket_client = socket.socket()
+address = sys.argv[1]
+port = sys.argv[2]
+file = sys.argv[3]
+path_save = sys.argv[4]
 
-file = sys.argv[1]
-# address_save = sys.argv[2]
-
-socket_client.connect((address, port))
+socket_client.connect((address, int(port)))
 
 file_name = pickle.dumps(file)
 
 socket_client.send(file_name)
 
 file_received = file
-with open(file_received, 'wb') as file:
-    print('Arquivo aberto')
-    while True:
-        fragment_file = socket_client.recv(buffer_size)
-        if not fragment_file:
-            file.close()
-            print("Arquivo fechado")
-            break
-        file.write(fragment_file)
+status_search_file = socket_client.recv(buffer_size)
+status_message = pickle.loads(status_search_file)
+if(status_message['status']):
+    with open(path_save+'/'+file_received, 'wb') as file:
+        while True:
+            fragment_file = socket_client.recv(buffer_size)
+            if not fragment_file:
+                file.close()
+                print("Arquivo "+file_received+" salvo em "+path_save)
+                break
+            file.write(fragment_file)
+# else:
+#     print(status_message['message'])
 
 socket_client.close()
-
-# data = socket_client.recv(1024)
-
-# result = pickle.loads(data)
-
-# print(result)
