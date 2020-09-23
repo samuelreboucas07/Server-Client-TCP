@@ -9,11 +9,8 @@ address = 'localhost'
 
 socket_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # socket_server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
 socket_server.bind((address, int(port)))
-
 socket_server.listen()
-
 while(True):
     print("Esperando conexão ....")
     conn, addr = socket_server.accept()
