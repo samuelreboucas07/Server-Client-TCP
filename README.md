@@ -75,7 +75,11 @@ O presente projeto apresenta diferentes cenários decorrentes da solicitação d
 
 1. Solicitação do arquivo presente na cache:
    
-   Este cenário é o mais indicado noque diz respeito economia de recursos, a cache do servidor é projetada para salvar arquivos recorrentemente requeridos, deste modo o custo de ler o arquivo a cada requisição é reduzido.
+   Este cenário é o mais indicado no que diz respeito economia de recursos, a cache do servidor é projetada para armazenar arquivos recorrentemente requeridos por um tempo limitado, de modo que o custo de ler o mesmo arquivo a cada requisição seja reduzido.
+
+    Observe na figura abaixo que 
+
+   ![fluxo de execução](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/req_file_1.png)
 
 # Memória Cache
 
