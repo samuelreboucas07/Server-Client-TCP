@@ -73,13 +73,38 @@ Os arquivos acima representam o servidor da aplicação, desde a camada de inter
 
 O presente projeto apresenta diferentes cenários decorrentes da solicitação do cliente ao servidor, os quais estão descritos abaixo.
 
-1. Solicitação do arquivo presente na cache:
+1. Solicitação de arquivo presente na memória cache:
    
    Este cenário é o mais indicado no que diz respeito economia de recursos, a cache do servidor é projetada para armazenar arquivos recorrentemente requeridos por um tempo limitado, de modo que o custo de ler o mesmo arquivo a cada requisição seja reduzido.
 
-    Observe na figura abaixo que 
+    Observe na figura abaixo o fluxo de execução neste cenário:
 
-   ![fluxo de execução](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/req_file_1.png)
+   ![fluxo de execução, arquivo na cache](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/req_file_1.png)
+
+   O cliente realiza a requisição de um arquivo ao servidor, em sequência o servidor vai verificar se o arquivo solicitado está na memória cache, caso o resultado seja positivo o arquivo é retornado para o servidor e serializado para enviar ao cliente solicitante. Caso contrário o servidor recebe a informação referente a ausência do arquivo na memória cache, e parte para o pŕoximo caso.
+
+2. Solicitação de arquivo ausente na memória cache:
+   
+   Partindo da situação anterior, onde o servidor recebe a informação da memória cache que o arquivo solicitado não está presente, temos o seguinte fluxo:
+
+    ![fluxo de execução, arquivo fora da cache](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/req_file_2.png)
+
+    Observe que a partir do momento que o servidor tem ciência da falta deste arquivo na memória cache o mesmo vai diretamente ao diretório de conhecimento para ler o arquivo e trazer ao servidor.
+
+    Sequencialmente a memória cache é acessada, e verificado se o arquivo solicitado para transferência tem tamanho menor ou igual ao limite da memória, caso o resultado seja positivo a memória vai liberar espaço ocupado (caso seja necessário) e assim será realizado o armazenamento do arquivo na cache. Após esse processo o arquivo é enviado para o servidor, para assim ser enviado ao cliente.
+
+    Caso o arquivo lido do sistema do diretório tenha tamanho maior que o limite permitido pela memória cache, o mesmo é enviado diretamento para o cliente e não será armazenado na memória cache.
+
+3. Solicitação de lista de arquivos presentes na memória cache:
+   
+   Este processo representou o menor fluxo de execução entre cliente e servidor. O cliente realiza a solicitação de listagem, o servidor recebe essa requisição, acessa a memória cache, percorre todos os dados armazenados e retorna para o servidor a lista com o nome de cada arquivo, em sequência o servidor retornará esta informação para o cliente.
+
+   ![fluxo de execução, listagem de arquivo](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/list_files.png)
+
+
+## Observações
+Transação entre cliente servidor pickle
+Servidor, cache e sistema de arquivo estao na mesma máquina.
 
 # Memória Cache
 
