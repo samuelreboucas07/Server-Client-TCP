@@ -44,7 +44,6 @@ class ServerThread(Thread):
                         fragment_file_save = file_save_cache.read()
                         file_save_cache.close()
                         item_size = os.path.getsize (self.path+'/'+file_name)/transformMB
-                        # print(item_size)
                         allocateCache = cache.verificCacheSpace(item_size)
                         if(allocateCache):
                             cache.allocate(file_name, fragment_file_save, item_size) # Allocate file  in cache
