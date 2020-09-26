@@ -97,14 +97,14 @@ O presente projeto apresenta diferentes cenários decorrentes da solicitação d
 
 3. Solicitação de lista de arquivos presentes na memória cache:
    
-   Este processo representou o menor fluxo de execução entre cliente e servidor. O cliente realiza a solicitação de listagem, o servidor recebe essa requisição, acessa a memória cache, percorre todos os dados armazenados e retorna para o servidor a lista com o nome de cada arquivo, em sequência o servidor retornará esta informação para o cliente.
+   Este processo representa o menor fluxo de execução entre cliente e servidor. O cliente realiza a solicitação de listagem, o servidor recebe essa requisição, acessa a memória cache, percorre todos os dados armazenados e retorna para o servidor a lista com o nome de cada arquivo, em sequência o servidor retornará esta informação para o cliente.
 
    ![fluxo de execução, listagem de arquivo](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/list_files.png)
 
 
 ## Observações
-Transação entre cliente servidor pickle
-Servidor, cache e sistema de arquivo estao na mesma máquina.
+
+Dada a topologia de um sistema de requisição entre cliente servidor, toda a informação transferida entre as partes é serializada,  para tal foi utilizado o módulo [Pickle](https://docs.python.org/3/library/pickle.html), o qual transforma as informações em fluxo de bytes para assim serem transferidas, posteriormente a mesma informação é desserializada para assim o requerinte ter conhecimento da mesma.
 
 # Memória Cache
 
