@@ -108,9 +108,28 @@ Dada a topologia de um sistema de requisição entre cliente servidor, toda a in
 
 # Memória Cache
 
+A memória cache deve ter uma estrutura que garanta velocidade de acesso e eficiência no armazenamento temporário, para tal a mesma foi simulada usando uma estrutura de dados baseada em chave e valor, denominada dicionário.
+
+Desta forma a memória cache possui uma estrutura cuja a chave de cada elemento é caracterizada pelo nome do arquivo armazenado, e seu valor é descrito por conter as informações binárias do arquivo lido, assim como o tamanho em Megabytes. Observe no esquema abaixo:
+
+```
+{
+   "nome_arquivo" : {
+                        "conteúdo": '[b'', .... ]',
+                        "tamanho": 10,0 
+                    }
+}
+```
+
 # Multiprocessamento
 
+Dada as particularidades de sistemas similares ao presente projeto, o multiprocessamento é uma caracteristica geralmente encontrada devido a necessidade de diferentes clientes realizarem solicitações ao servidor no mesmo período de tempo sem que a solicitação de um cliente onere a experiência de outro devido a impossibilidade de acesso no referido momento.
+
+Deste modo, foi necessário aplicar o conceito de Threads, as quais possibilitam que o sistema operacional execute várias solicitações simultaneamente, sem que uma interefira na outra compartilhando os recursos do processo, mas executando de forma independente.
+
 # Exclusão mútua
+
+# Protocolo
 
 # Websocket
 
