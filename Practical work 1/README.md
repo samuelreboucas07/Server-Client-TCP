@@ -1,6 +1,7 @@
 # Escopo e objetivo
 
-
+O presente trabalho tem como objetivo permitir a troca de informações entre o cliente e servidor, recuperando arquivos armazenados através de requisições feitas por clientes. 
+Para tal foi utilizada uma estrutura de socket que permite a conexão entre as partes envolvidas, de modo que mediante o conhecimento das informações referentes a endereço e porta do servidor, qualquer cliente fosse capaz de solicitar arquivos.
 
 # Iniciando ....
 
@@ -20,7 +21,7 @@ Você deverá ter instalado em seu computador a versão 3 da linguagem de progra
 
 # Protocolo
 
-O socket provê a comunicação entre duas partes. A representação é dada por ```ip:porta```, de modo que o socket para realizar a transferência de informações entre o cliente e servidor utiliza o conjunto de protocolos TCP/IP .
+O socket provê a comunicação entre duas partes. A representação é dada por ```ip:porta```, de modo que o socket utiliza o conjunto de protocolos TCP/IP para trocar informações entre as partes.
 
 De acordo com o modelo OSI os sockets estão entre a camada de aplicação e de transporte.
 
@@ -28,9 +29,7 @@ De acordo com o modelo OSI os sockets estão entre a camada de aplicação e de 
 
 Para iniciar a comunicação entre cliente e servidor é necessário que o cliente conheça o endereço (IP) e a porta do servidor, caso contrário não será possível realizar a comunicação entre as partes, uma vez que este tipo de conexão é sempre iniciada pelo cliente.
 
-# Executando a aplicação
-
-O presente trabalho é caracterizado pela troca de informações entre cliente e servidor, deste modo a execução deste projeto é definida em duas etapas básicas, inicialização do servidor e solicitação do cliente.
+# Execução da aplicação
 
 ## Inicialização do servidor
 
