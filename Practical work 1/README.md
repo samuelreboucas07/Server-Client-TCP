@@ -141,11 +141,11 @@ That way, it was necessary to apply the concept of Threads, which allow the oper
 
 The tests performed below are performed on the same machine, so that the server's access address is defined as the local address.
 
-1. Inicialização do servidor e solicitação de arquivo fora da memória cache:
+1. Server startup and file request out of cache:
 
    ![Server and cache miss](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/Practical%20work%201/imgs/cache_miss.gif)
 
-2. Server startup and file request out of cache:
+2. Server startup and request for file in cache memory:
 
    ![server and cache hit](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/Practical%20work%201/imgs/cache_hit.gif)
 
