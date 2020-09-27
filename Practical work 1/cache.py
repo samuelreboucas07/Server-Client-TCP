@@ -25,18 +25,15 @@ class ManagerCache():
             print("Arquivo maior que a capacidade máxima da cache.")
             return False
         else:
-            print("Verificando espaço livre")
             for file in cache.values():
                 busy_size = busy_size + file['size']
             if(busy_size + file_size > max_size_cache):
                 self.freeMemory(file_size)
                 return True
             else:
-                print("Alocar na cache")
                 return True
 
     def freeMemory(self, file_size): #Remove item com tamanho maior ou igual, caso não tenha, vai removendo até liberar espaço
-        print("LIBERAR CACHE")
         size_excluded_cache = 0.0
         freed_up_space = False
         for file in cache:

@@ -49,7 +49,7 @@ Para realizar uma requisição ao servidor é necessário seguir o seguinte coma
 
 Baseado no endereço em que o presente servidor está em execução, o campo **endereco** deverá ser substituido por **localhost**, de modo que o comando para execução do cliente fique da seguinte forma:
 
-* ``` python3 client.py localhost porta nome_arquivo diretorio_destino ```
+* ``` python3 client.py 127.0.0.1 porta nome_arquivo diretorio_destino ```
 
 O campo **nome_arquivo** se refere ao arquivo que vai ser solicitado ao servidor, o qual será salvo no diretório informado através do campo **diretorio_destino**.
 
@@ -57,7 +57,7 @@ O campo **nome_arquivo** se refere ao arquivo que vai ser solicitado ao servidor
 
 Além da solicitação de arquivos do servidor o cliente pode solicitar ao servidor que o mesmo envie o estado atual da sua memória cache, informando quais arquivos estão alocados no presente momento. Para tal, execute o seguinte comando. 
 
-* ``` python3 client.py localhost porta list_files_cache ```
+* ``` python3 client.py localhost porta list_files ```
 
 **Observação:** O campo **porta** deve ser igual tanto no servidor, quanto no cliente, caso contrário não será possível realizar a comunicação entre as partes.
 
@@ -137,3 +137,9 @@ Dada as particularidades de sistemas similares ao presente projeto, o multiproce
 Deste modo, foi necessário aplicar o conceito de Threads, as quais possibilitam que o sistema operacional execute várias solicitações simultaneamente, sem que uma interefira na outra compartilhando os recursos do processo, mas executando de forma independente.
 
 # Exemplo de funcionamento
+
+   ![Servidor e cache miss](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/cache_miss.gif)
+
+   ![Servidor e cache hit](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/cache_hit.gif)
+
+   ![Servidor e listar arquivos](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/list_files.gif)

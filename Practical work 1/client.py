@@ -29,13 +29,16 @@ if(len(sys.argv) == 5):
 
 if(len(sys.argv) == 4):
     list_files_cache = sys.argv[3]
-    if(list_files_cache == 'list_files_cache'):
+    if(list_files_cache == 'list_files'):
         list_files_message = pickle.dumps(list_files_cache)
         socket_client.send(list_files_message)
         files_cache = socket_client.recv(buffer_size)
         files_cache_list = pickle.loads(files_cache)
-        print("Arquivos presentes na memória cache:")
-        for file in files_cache_list:
-            print (file)
+        if(len(files_cache_list) == 0):
+            print("Nenhum arquivo presente na memória cache.")
+        else:
+            print("Arquivos presentes na memória cache:")
+            for file in files_cache_list:
+                print (file)
 
 socket_client.close()
