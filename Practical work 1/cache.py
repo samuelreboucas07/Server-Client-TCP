@@ -1,6 +1,6 @@
 
 cache = {}
-max_size_cache = 600 #MB
+max_size_cache = 64 #MB
 
 class ManagerCache():
     def list_cache(self):

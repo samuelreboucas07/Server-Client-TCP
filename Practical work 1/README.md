@@ -1,145 +1,156 @@
-# Escopo e objetivo
+# Scope and objective
 
-O presente trabalho tem como objetivo permitir a troca de informações entre o cliente e servidor, recuperando arquivos armazenados através de requisições feitas por clientes. 
-Para tal foi utilizada uma estrutura de socket que permite a conexão entre as partes envolvidas, de modo que mediante o conhecimento das informações referentes a endereço e porta do servidor, qualquer cliente fosse capaz de solicitar arquivos.
+This work aims to allow the exchange of information between the client and server, retrieving stored files through customer requests.
 
-# Iniciando ....
+For this, a socket structure was used that allows the connection between the parties involved, so that from the knowledge of the information related to the server's address and port, any customer was able to request files.
 
-## Faça o clone do repositório atual
+# Starting ....
+
+## Clone the current repository
 
 * ``` https://github.com/samuelreboucas07/Sistemas-distribu-dos.git ```
 
-## Abra o terminal e execute o seguinte comando:
+## Open the terminal and run this command:
 
 
 * ``` cd Sistemas-distribu-dos/Practical\ work\ 1 ```
 
 
-# Pré-requisitos
+# Requirements
 
-Você deverá ter instalado em seu computador a versão 3 da linguagem de programação Python. 
+You must have installed on your computer version 3 of the Python programming language. 
 
-# Protocolo
+# Protocol
 
-O socket provê a comunicação entre duas partes. A representação é dada por ```ip:porta```, de modo que o socket utiliza o conjunto de protocolos TCP/IP para trocar informações entre as partes.
+The socket provides communication between two parties. The representation is given by ```IP:port```, so that the socket uses the set of TCP/IP protocols to exchange information between the parties.
 
-De acordo com o modelo OSI os sockets estão entre a camada de aplicação e de transporte.
+According to the OSI model, sockets are between the application and transport layer.
 
-![protocolo de comunicação](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/protocol.png)
+![protocol of comunication](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/protocol.png)
 
-Para iniciar a comunicação entre cliente e servidor é necessário que o cliente conheça o endereço (IP) e a porta do servidor, caso contrário não será possível realizar a comunicação entre as partes, uma vez que este tipo de conexão é sempre iniciada pelo cliente.
+To initiate communication between client and server, the client needs to know the server's address (IP) and port, otherwise it will not be possible to carry out communication between the parties, once this type of connection is always initiated by the client.
 
-# Execução da aplicação
+# Application execution
 
-## Inicialização do servidor
+## Server startup
 
-Para inicializar o servidor o comando deve respeitar o seguinte padrão:
+To start the server, the command must respect the following standard:
 
-* ``` python3 server_main.py porta repositorio_de_arquivos ```
+* ``` python3 server_main.py port file_repository ```
 
-O valor referente ao campo **porta** representa o ponto de comunicação entre o servidor e o cliente (desde que combinado com o endereço de IP correto). Já o campo **repositorio_de_arquivos** representa a pasta a qual o servidor terá "controle" sobre os arquivos, podendo transferi-los mediante solicitação do cliente.
+The value referring to the field **port** represents the point of communication between the server and the client (as long as combined with the correct IP address). The field **file_repository** represents the folder to which the server will have "control" over the files, being able to transfer them upon request of the client.
 
-## Requisição do cliente
+## Client request
 
-### Solicitação de arquivo ao servidor
+### File request to the server
 
-Para realizar uma requisição ao servidor é necessário seguir o seguinte comando:
+To make a request to the server, the following command must be performed:
 
-* ``` python3 client.py endereco porta nome_arquivo diretorio_destino ```
+* ``` python3 client.py address port file_name destination_directory ```
 
-Baseado no endereço em que o presente servidor está em execução, o campo **endereco** deverá ser substituido por **localhost**, de modo que o comando para execução do cliente fique da seguinte forma:
+Based on the address where the current server is running, the field **address** should be replaced by **127.0.0.1**, since the server is running on the same machine as the client. Thus, the command to execute the client is as follows:
 
-* ``` python3 client.py 127.0.0.1 porta nome_arquivo diretorio_destino ```
+* ``` python3 client.py 127.0.0.1 port file_name destination_directory ```
 
-O campo **nome_arquivo** se refere ao arquivo que vai ser solicitado ao servidor, o qual será salvo no diretório informado através do campo **diretorio_destino**.
+The field **file_name** refers to the file that will be requested from the server, which will be saved in the directory informed through the field **destination_directory**.
 
-### Solicitação de informação sobre estado da memóra cache
+### Request for cache memory status information
 
-Além da solicitação de arquivos do servidor o cliente pode solicitar ao servidor que o mesmo envie o estado atual da sua memória cache, informando quais arquivos estão alocados no presente momento. Para tal, execute o seguinte comando. 
+In addition to requesting files from the server, the client can request that it send the current state of its cache memory, informing which files are currently allocated. 
 
-* ``` python3 client.py localhost porta list_files ```
+* ``` python3 client.py 127.0.0.1 port list_files ```
 
-**Observação:** O campo **porta** deve ser igual tanto no servidor, quanto no cliente, caso contrário não será possível realizar a comunicação entre as partes.
+**Note:** The field **port** it must be the same on both the server and the client, otherwise communication between the parties will not be possible.
 
-# Modelagem
+# Modeling
 
-## Organização dos arquivos
+## Organization of files
 
-O presente trabalho foi modularizado de modo a garantir que possíveis refatorações futuras e novas funcionalidades sejam realizadas de modo facilitado, deste modo o servidor foi divido em 3 arquivos e o cliente apenas 1 arquivo.
+The present work was modularized in order to guarantee that possible future refactorings and new functionalities are carried out in an easier way, thus the server was divided into 3 files and the client only 1 file.
 
-* ```server_main.py: ``` Arquivo de inicialização do servidor, o mesmo é responsável por habilizar o socket e garnatir que a porta definida no presente endereço seja escutado pelo socket, de modo que a partir do momento que novos clientes tentarem conectar ao servidor, o mesmo tenha ciência da solicitação.
-Neste mesmo arquivo é realizado a instanciação da Thread, a qual será explanada nas próximas seções.
+* ```server_main.py: ``` Server boot file, it is responsible for enabling the socket and ensuring that the port defined in this address is heard by the socket, so that as soon as new clients try to connect to the server, it is aware of the request.
+In this same file the Thread instantiation is performed, which will be explained in the next sections.
 
-* ```server.py: ``` Este arquivo é caracterizado como o principal arquivo do servidor, nele estão desenvolvidas todas as rotinas de leitura de arquivo, comunicação com cliente (recebimento de mensagem e envio de resultado), assim como a intereação com a memória cache, entre outros.
+* ```server.py: ``` This file is characterized as the main server file, it contains all file reading routines, client communication (receiving messages and sending results), as well as the interaction with the cache memory, among others.
   
-* ```cache.py: ``` Dada a configuração da memória cache e os métodos a ela empregada, julgou-se necessário a modularização da mesma, de modo que todas as interações tivessem um contexto bem definido, desde a sua instanciação até o retorno do resultado de seu processamento.
+* ```cache.py: ``` Given the configuration of the cache memory and the methods employed, modularization was considered necessary, so that all interactions have a well-defined context, from its instantiation to the return of the result of its processing.
 
-Os arquivos acima representam o servidor da aplicação, desde a camada de interação com o cliente até o armazenamento dos arquivos em memória.
+The above files represent the application server, from the client interaction layer to the storage of files in memory.
 
-* ```client.py: ``` Este arquivo compreende o tratamento das informações dada pelo cliente ao executar o presente arquivo, assim como a solicitação ao servidor para a transação de dados ou listagem dos items contidos na memória cache.
+* ```client.py: ``` This file comprises the treatment of information given by the client when executing the present file, as well as the request to the server for the data transaction or listing of the items contained in the cache memory.
 
-## Fluxo de execução
+## Execution flow
 
-O presente projeto apresenta diferentes cenários decorrentes da solicitação do cliente ao servidor, os quais estão descritos abaixo.
+The present project presents different scenarios resulting from the client's request to the server, which are described below.
 
-1. Solicitação de arquivo presente na memória cache:
+1. File request present in cache memory:
    
-   Este cenário é o mais indicado no que diz respeito economia de recursos, a cache do servidor é projetada para armazenar arquivos recorrentemente requeridos por um tempo limitado, de modo que o custo de ler o mesmo arquivo a cada requisição seja reduzido.
+   This scenario is the most suitable with regard to saving resources, the server cache is designed to store recurrently required files for a limited time, so that the cost of reading the same file for each request is reduced.
 
-    Observe na figura abaixo o fluxo de execução neste cenário:
+   Observe the flow of execution in this scenario in the figure below:
 
-   ![fluxo de execução, arquivo na cache](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/req_file_1.png)
+   ![execution flow, file in cache](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/req_file_1.png)
 
-   O cliente realiza a requisição de um arquivo ao servidor, em sequência o servidor vai verificar se o arquivo solicitado está na memória cache, caso o resultado seja positivo o arquivo é retornado para o servidor e serializado para enviar ao cliente solicitante. Caso contrário o servidor recebe a informação referente a ausência do arquivo na memória cache, e parte para o pŕoximo caso.
+   The client requests a file from the server, in sequence, the server will check if the requested file is in the cache memory, if the result is positive the file is returned to the server and serialized to send to the requesting client. Otherwise, the server receives information related to the absence of the file in the cache memory, and moves on to the next scenario.
 
-2. Solicitação de arquivo ausente na memória cache:
+2. File request missing from cache memory:
    
-   Partindo da situação anterior, onde o servidor recebe a informação da memória cache que o arquivo solicitado não está presente, temos o seguinte fluxo:
+   Starting from the previous situation, where the server receives information from the cache memory that the requested file is not present, we have the following flow:
 
-    ![fluxo de execução, arquivo fora da cache](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/req_file_2.png)
+    ![execution flow, file out of cache](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/req_file_2.png)
 
-    Observe que a partir do momento que o servidor tem ciência da falta deste arquivo na memória cache o mesmo vai diretamente ao diretório de conhecimento para ler o arquivo e trazer ao servidor.
+    Note that as soon as the server is aware of the absence of this file in the cache memory it goes directly to the knowledge directory to read the file and bring it to the server.
 
-    Sequencialmente a memória cache é acessada, e verificado se o arquivo solicitado para transferência tem tamanho menor ou igual ao limite da memória, caso o resultado seja positivo a memória vai liberar espaço ocupado (caso seja necessário) e assim será realizado o armazenamento do arquivo na cache. Após esse processo o arquivo é enviado para o servidor, para assim ser enviado ao cliente.
+    Sequentially the cache memory is accessed, and the file requested for transfer is checked for size less than or equal to the memory limit, if the result is positive the memory will free up occupied space (if it's necessary) and thus the file will be stored in the cache. After this process the file is sent to the server, to be sent to the client.
 
-    Caso o arquivo lido do sistema do diretório tenha tamanho maior que o limite permitido pela memória cache, o mesmo é enviado diretamento para o cliente e não será armazenado na memória cache.
+    If the file read from the directory system is larger than the limit allowed by the cache memory, it is sent directly to the client and will not be stored in cache memory.
 
-3. Solicitação de lista de arquivos presentes na memória cache:
+3. Request for list of files present in cache memory:
    
-   Este processo representa o menor fluxo de execução entre cliente e servidor. O cliente realiza a solicitação de listagem, o servidor recebe essa requisição, acessa a memória cache, percorre todos os dados armazenados e retorna para o servidor a lista com o nome de cada arquivo, em sequência o servidor retornará esta informação para o cliente.
+   This process represents the smallest flow of execution between client and server. The client makes the listing request, the server receives this request,access cache memory, go through all the stored data and return the list with the name of each file to the server, in sequence, the server will return this information to the client.
 
-   ![fluxo de execução, listagem de arquivo](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/list_files.png)
+   ![execution flow, file listing](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/list_files.png)
 
 
-## Observações
+## Comments
 
-Dada a topologia de um sistema de requisição entre cliente servidor, toda a informação transferida entre as partes é serializada,  para tal foi utilizado o módulo [Pickle](https://docs.python.org/3/library/pickle.html), o qual transforma as informações em fluxo de bytes para assim serem transferidas, posteriormente a mesma informação é desserializada para assim o requerinte ter conhecimento da mesma.
+Given the topology of a requisition system between client and server, all the information transferred between the parties is serialized,  for this, the module was used [Pickle](https://docs.python.org/3/library/pickle.html), which transforms information into a byte stream to be transferred, later the same information is deserialized so that the applicant is aware of it.
 
-# Memória Cache
+# Cache Memory
 
-A memória cache deve ter uma estrutura que garanta velocidade de acesso e eficiência no armazenamento temporário, para tal a mesma foi simulada usando uma estrutura de dados baseada em chave e valor, denominada dicionário.
+The cache memory must have a structure that provides access speed and efficiency in temporary storage. Therefore, it was simulated using a data structure based on key and value, called a dictionary.
 
-Desta forma a memória cache possui uma estrutura cuja a chave de cada elemento é caracterizada pelo nome do arquivo armazenado, e seu valor é descrito por conter as informações binárias do arquivo lido, assim como o tamanho em Megabytes. Observe no esquema abaixo:
+In this way the cache memory has a structure whose key for each element is characterized by the name of the stored file, and its value is described because it contains the binary information of the file read, as well as the size in Megabytes. Note in the diagram below:
 
 ```
 {
-   "nome_arquivo" : {
-                        "conteúdo": '[b'', .... ]',
-                        "tamanho": 10,0 
+   "file_name" : {
+                        "content": '[b'', .... ]',
+                        "size": 10,0 
                     }
 }
 ```
 
-# Multiprocessamento
+# Multiprocessing
 
-Dada as particularidades de sistemas similares ao presente projeto, o multiprocessamento é uma caracteristica geralmente encontrada devido a necessidade de diferentes clientes realizarem solicitações ao servidor no mesmo período de tempo sem que a solicitação de um cliente onere a experiência de outro devido a impossibilidade de acesso no referido momento.
+Given the peculiarities of systems similar to this project, multiprocessing is a characteristic generally requested due to the need for different clients to make requests to the server in the same period of time without the request of one client burdening the experience of another due to the impossibility of access at that moment.
 
-Deste modo, foi necessário aplicar o conceito de Threads, as quais possibilitam que o sistema operacional execute várias solicitações simultaneamente, sem que uma interefira na outra compartilhando os recursos do processo, mas executando de forma independente.
+That way, it was necessary to apply the concept of Threads, which allow the operating system to execute multiple requests simultaneously,sharing system resources, but running independently.
 
-# Exemplo de funcionamento
+# Examples
 
-   ![Servidor e cache miss](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/cache_miss.gif)
+The tests performed below are performed on the same machine, so that the server's access address is defined as the local address.
 
-   ![Servidor e cache hit](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/cache_hit.gif)
+1. Inicialização do servidor e solicitação de arquivo fora da memória cache:
 
-   ![Servidor e listar arquivos](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/list_files.gif)
+   ![Server and cache miss](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/cache_miss.gif)
+
+2. Server startup and file request out of cache:
+
+   ![server and cache hit](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/cache_hit.gif)
+
+3. Request for listing of files in the cache memory:
+
+   ![list files](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/Atividade-pratica-1/imgs/list_files.gif)
+
+The directories used in the examples above should not be used in other test environments, since the organization and naming of folders is a particular characteristic of each environment.
