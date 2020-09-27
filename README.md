@@ -10,12 +10,6 @@ For this, a socket structure was used that allows the connection between the par
 
 * ``` https://github.com/samuelreboucas07/Sistemas-distribu-dos.git ```
 
-## Open the terminal and run this command:
-
-
-* ``` cd Sistemas-distribu-dos/Practical\ work\ 1 ```
-
-
 # Requirements
 
 You must have installed on your computer version 3 of the Python programming language. 
