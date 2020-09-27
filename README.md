@@ -8,7 +8,7 @@ For this, a socket structure was used that allows the connection between the par
 
 ## Clone the current repository
 
-* ``` https://github.com/samuelreboucas07/Sistemas-distribu-dos.git ```
+* ``` https://github.com/samuelreboucas07/Server-Client-TCP.git ```
 
 # Requirements
 
@@ -20,7 +20,7 @@ The socket provides communication between two parties. The representation is giv
 
 According to the OSI model, sockets are between the application and transport layer.
 
-![protocol of comunication](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/master/Practical%20work%201/imgs/protocol.png)
+![protocol of comunication](https://github.com/samuelreboucas07/Server-Client-TCP/blob/master/Practical%20work%201/imgs/protocol.png)
 
 To initiate communication between client and server, the client needs to know the server's address (IP) and port, otherwise it will not be possible to carry out communication between the parties, once this type of connection is always initiated by the client.
 
@@ -83,7 +83,7 @@ The present project presents different scenarios resulting from the client's req
 
    Observe the flow of execution in this scenario in the figure below:
 
-   ![execution flow, file in cache](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/master/Practical%20work%201/imgs/req_file_1.png)
+   ![execution flow, file in cache](https://github.com/samuelreboucas07/Server-Client-TCP/blob/master/Practical%20work%201/imgs/req_file_1.png)
 
    The client requests a file from the server, in sequence, the server will check if the requested file is in the cache memory, if the result is positive the file is returned to the server and serialized to send to the requesting client. Otherwise, the server receives information related to the absence of the file in the cache memory, and moves on to the next scenario.
 
@@ -91,7 +91,7 @@ The present project presents different scenarios resulting from the client's req
    
    Starting from the previous situation, where the server receives information from the cache memory that the requested file is not present, we have the following flow:
 
-    ![execution flow, file out of cache](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/master/Practical%20work%201/imgs/req_file_2.png)
+    ![execution flow, file out of cache](https://github.com/samuelreboucas07/Server-Client-TCP/blob/master/Practical%20work%201/imgs/req_file_2.png)
 
     Note that as soon as the server is aware of the absence of this file in the cache memory it goes directly to the knowledge directory to read the file and bring it to the server.
 
@@ -103,7 +103,7 @@ The present project presents different scenarios resulting from the client's req
    
    This process represents the smallest flow of execution between client and server. The client makes the listing request, the server receives this request,access cache memory, go through all the stored data and return the list with the name of each file to the server, in sequence, the server will return this information to the client.
 
-   ![execution flow, file listing](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/master/Practical%20work%201/imgs/list_files.png)
+   ![execution flow, file listing](https://github.com/samuelreboucas07/Server-Client-TCP/blob/master/Practical%20work%201/imgs/list_files.png)
 
 
 ## Comments
@@ -137,14 +137,14 @@ The tests performed below are performed on the same machine, so that the server'
 
 1. Server startup and file request out of cache:
 
-   ![Server and cache miss](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/master/Practical%20work%201/imgs/cache_miss.gif)
+   ![Server and cache miss](https://github.com/samuelreboucas07/Server-Client-TCP/blob/master/Practical%20work%201/imgs/cache_miss.gif)
 
 2. Server startup and request for file in cache memory:
 
-   ![server and cache hit](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/master/Practical%20work%201/imgs/cache_hit.gif)
+   ![server and cache hit](https://github.com/samuelreboucas07/Server-Client-TCP/blob/master/Practical%20work%201/imgs/cache_hit.gif)
 
 3. Request for listing of files in the cache memory:
 
-   ![list files](https://github.com/samuelreboucas07/Sistemas-distribu-dos/blob/master/Practical%20work%201/imgs/list_files.gif)
+   ![list files](https://github.com/samuelreboucas07/Server-Client-TCP/blob/master/Practical%20work%201/imgs/list_files.gif)
 
 The directories used in the examples above should not be used in other test environments, since the organization and naming of folders is a particular characteristic of each environment.
